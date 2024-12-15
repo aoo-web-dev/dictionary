@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dictionary</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="./favicons/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="./favicons/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./favicons/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="Dictionary" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <link rel="stylesheet" href="./styles/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="header-left">
+          <img
+            src="./images/book-icon.svg"
+            alt="Book icon of this website"
+            loading="lazy"
+          />
+        </div>
+        <div class="header-right">
+          <details>
+            <summary class="summary">
+              <span id="defFont">Sans Serif</span>
+              <img
+                src="./images/dropdown-icon.svg"
+                alt="Dropdown icon of Dropdown"
+                loading="lazy"
+              />
+            </summary>
+            <ul class="fonts-list">
+              <li class="sans-serif">Sans Serif</li>
+              <li class="serif">Serif</li>
+              <li class="monospace">Mono</li>
+            </ul>
+          </details>
+          <div class="line"></div>
+          <div class="mode-wrapper">
+            <input type="checkbox" class="dark-mode-style" id="dark-mode" />
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M1 10.449C0.998458 12.8283 1.80169 15.1383 3.27914 17.0033C4.75659 18.8683 6.82139 20.1788 9.13799 20.7218C11.4545 21.2647 13.8866 21.0082 16.039 19.994C18.1912 18.9797 19.9373 17.2673 20.9931 15.1352C11.5442 15.1352 6.85799 10.4479 6.85799 1C5.09842 1.87311 3.61767 3.22033 2.58266 4.88981C1.54765 6.5593 0.999502 8.48469 1 10.449Z"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="input-wrapper">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search for any word..."
+        />
+        <button id="button">
+          <img
+            src="./images/search-icon.svg"
+            alt="Search icon of input"
+            loading="lazy"
+          />
+        </button>
+      </div>
+      <p style="display: none" class="undText">Whoops, can’t be empty…</p>
+      <div style="display: none" class="errorText">
+        <div>
+          <img
+            src="./images/sad-smile-image.png"
+            alt="Sad Smile Image"
+            loading="lazy"
+          />
+        </div>
+        <strong>No Definitions Found</strong>
+        <p>
+          Sorry pal, we couldn't find definitions for the word you were looking
+          for. You can try the search again at later time or head to the web
+          instead.
+        </p>
+      </div>
+      <div class="wrapper"></div>
+    </div>
+
+    <script src="./js/script.js" type="module"></script>
+  </body>
+</html>
