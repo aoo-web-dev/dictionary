@@ -11,10 +11,14 @@ const button = document.querySelector("#button");
 const undText = document.querySelector(".undText");
 const errorText = document.querySelector(".errorText");
 
+// ! Buni validatsiya desa ham boladi.
+
 function resetMessages() {
   undText.style.display = "none";
   errorText.style.display = "none";
 }
+
+// ! Kelayotgan funksiyalar API ichidagi qiymatlarni aylantirib tanlab tekshiradi.
 
 function checkIndex(definitions) {
   return definitions
@@ -61,23 +65,67 @@ function checkMeaning(meanings) {
     .join("");
 }
 
+function getAudioUrl(phoneticData) {
+  let audioUrl = "";
+
+  for (let i = 0; i < phoneticData.length; i++) {
+    if (phoneticData[i].audio) {
+      audioUrl = phoneticData[i].audio;
+      break;
+    }
+  }
+
+  return audioUrl;
+}
+
+function getAudioWrapperContent(audioUrl) {
+  let audioWrapperContent;
+
+  if (audioUrl) {
+    audioWrapperContent = `
+      <button class="audioBtn">
+        <img src="../images/audio-icon-button.svg" loading="lazy" />
+        <audio class="audioElement">
+          <source src="${audioUrl}" type="audio/mp3" />
+          Sizning brauzeringiz audio elementni qo'llab-quvvatlamaydi.
+        </audio>
+      </button>
+    `;
+  } else {
+    audioWrapperContent = "<p>Audio mavjud emas</p>";
+  }
+
+  return audioWrapperContent;
+}
+
+// ! Wrapper ichidagi malumotlar chiqishi uchun shablon.
+
 function createCard(data) {
+  const phoneticData = data[0].phonetics;
+  const audioUrl = getAudioUrl(phoneticData);
+  const audioWrapperContent = getAudioWrapperContent(audioUrl);
+
   return `
-        <h1>${data[0].word}</h1>
-        <p class="phonetic">${data[0].phonetic || "No phonetic available"}</p>
-        ${checkMeaning(data[0].meanings)}
-        <div class="pofLineOne"></div>
-        <div class="wrapperLinks">
-          <a href="${data[0].sourceUrls[0]}" target="_blank">Source</a>
-          <a href="${data[0].sourceUrls[0]}" target="_blank">${
+    <h1>${data[0].word}</h1>
+    <div class="audioWrapper">
+      ${audioWrapperContent} 
+    </div>
+    <p class="phonetic">${data[0].phonetic || "No phonetic available"}</p>
+    ${checkMeaning(data[0].meanings)}
+    <div class="pofLineOne"></div>
+    <div class="wrapperLinks">
+      <a href="${data[0].sourceUrls[0]}" target="_blank">Source</a>
+      <a href="${data[0].sourceUrls[0]}" target="_blank">${
     data[0].sourceUrls[0]
   }</a>
-          <a href="${data[0].sourceUrls[0]}" target="_blank">
-            <img src="../images/link-icon.svg" alt="Link Icon" />
-          </a>
-        </div>
-      `;
+      <a href="${data[0].sourceUrls[0]}" target="_blank">
+        <img src="../images/link-icon.svg" alt="Link Icon" />
+      </a>
+    </div>
+  `;
 }
+
+// ! Button bosilgandagi hodisa va jarayonlar kodi
 
 button &&
   button.addEventListener("click", function () {
@@ -92,18 +140,29 @@ button &&
 
     fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
       .then((response) => {
+        // ! Bu response.ok API yaxshi ishlashini tekshiradi yani 200-299 oraligida true qaytaradi boshqa payt false degan manoda qilingan.
         if (!response.ok) {
           throw new Error("Word not found");
         }
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         if (!data || !data[0]) {
           throw new Error("Invalid response format");
         }
         wrapper.innerHTML = createCard(data);
         searchInput.value = "";
+
+        // ! audio button bosilganda auido ishga tushishi uchun kerak.
+        const audioBtn = document.querySelector(".audioBtn");
+        if (audioBtn) {
+          const audioElement = audioBtn.querySelector("audio");
+          if (audioElement) {
+            audioBtn.addEventListener("click", function () {
+              audioElement.play();
+            });
+          }
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -111,10 +170,14 @@ button &&
       });
   });
 
+// !: || https://www.w3schools.com/howto/howto_js_trigger_button_enter.asp || Shu saytdan topdim button orniga enter ishlatishni va boshqa sayt videolardan ham biriktirdim.
+
 searchInput.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
-    button.click();
+    if (button) {
+      button.click();
+    } else {
+      console.error("Button not found");
+    }
   }
 });
-
-// !: || https://www.w3schools.com/howto/howto_js_trigger_button_enter.asp || Shu saytdan topdim button orniga enter ishlatishni.

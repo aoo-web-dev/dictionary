@@ -1,20 +1,20 @@
 const sansSerif = document.querySelector(".sans-serif");
 const serif = document.querySelector(".serif");
 const monospace = document.querySelector(".monospace");
-const defFonts = document.querySelector("#defFont");
+const defaultFont = document.querySelector("#defaultFont");
 
-const saveFonts = localStorage.getItem("fontFamily");
-const saveDefFont = localStorage.getItem("defFont");
+const saveFont = localStorage.getItem("fontFamily");
+const saveDefaultFont = localStorage.getItem("defaultFont");
 
-if (saveFonts) {
-  document.body.style.fontFamily = saveFonts;
+if (saveFont) {
+  document.body.style.fontFamily = saveFont;
   document.querySelectorAll("body *").forEach((value) => {
-    value.style.fontFamily = saveFonts;
+    value.style.fontFamily = saveFont;
   });
 }
 
-if (saveDefFont) {
-  defFonts.textContent = saveDefFont;
+if (saveDefaultFont) {
+  defaultFont.textContent = saveDefaultFont;
 }
 
 sansSerif.addEventListener("click", () => {
@@ -22,9 +22,9 @@ sansSerif.addEventListener("click", () => {
   document.querySelectorAll("body *").forEach((value) => {
     value.style.fontFamily = "sans-serif";
   });
-  defFonts.textContent = "Sans Serif";
+  defaultFont.textContent = "Sans Serif";
   localStorage.setItem("fontFamily", "sans-serif");
-  localStorage.setItem("defFont", "Sans Serif");
+  localStorage.setItem("defaultFont", "Sans Serif");
 });
 
 serif.addEventListener("click", () => {
@@ -32,9 +32,9 @@ serif.addEventListener("click", () => {
   document.querySelectorAll("body *").forEach((value) => {
     value.style.fontFamily = "serif";
   });
-  defFonts.textContent = "Serif";
+  defaultFont.textContent = "Serif";
   localStorage.setItem("fontFamily", "serif");
-  localStorage.setItem("defFont", "Serif");
+  localStorage.setItem("defaultFont", "Serif");
 });
 
 monospace.addEventListener("click", () => {
@@ -42,7 +42,7 @@ monospace.addEventListener("click", () => {
   document.querySelectorAll("body *").forEach((value) => {
     value.style.fontFamily = "monospace";
   });
-  defFonts.textContent = "Mono";
+  defaultFont.textContent = "Mono";
   localStorage.setItem("fontFamily", "monospace");
-  localStorage.setItem("defFont", "Mono");
+  localStorage.setItem("defaultFont", "Mono");
 });

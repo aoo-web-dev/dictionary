@@ -6,7 +6,7 @@
 
 body {
   width: 100vw;
-  height: 100dvh;
+  height: 100vh;
   overflow-x: hidden;
 }
 
@@ -280,6 +280,10 @@ svg {
   color: #757575;
 }
 
+.wrapper {
+  position: relative;
+}
+
 h1 {
   font-weight: 700;
   font-size: 64px;
@@ -289,6 +293,32 @@ h1 {
 
 .dark h1 {
   color: #fff;
+}
+
+.audioBtn {
+  width: 75px;
+  height: 75px;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  position: absolute;
+  top: 20px;
+  right: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.audioBtn:active {
+  transform: scale(0.9);
+  transition: all 0.3s ease;
+}
+
+.audioBtn > img {
+  transition: all 0.3s ease;
+}
+
+audio {
+  visibility: hidden;
 }
 
 .phonetic {
@@ -436,6 +466,10 @@ h1 {
   .container {
     padding: 58px 0 118px 0;
   }
+
+  .audioBtn {
+    top: 13px;
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -525,6 +559,13 @@ h1 {
   h1 {
     font-size: 32px;
     line-height: 39px;
+  }
+
+  .audioBtn {
+    width: 48px;
+    height: 48px;
+    top: 10px;
+    right: 24px;
   }
 
   .phonetic {
